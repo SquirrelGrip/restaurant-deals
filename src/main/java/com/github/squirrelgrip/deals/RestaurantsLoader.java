@@ -27,13 +27,13 @@ public class RestaurantsLoader {
 
     public void loadFromResources(String resource) {
         try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource)) {
-            loadFromStream(inputStream);
+            loadFromInputStream(inputStream);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void loadFromStream(InputStream inputStream) {
+    public void loadFromInputStream(InputStream inputStream) {
         try {
             Restaurants restaurants = objectMapper.readValue(inputStream, Restaurants.class);
             restaurants.getRestaurants().forEach(restaurantRepository::save);
