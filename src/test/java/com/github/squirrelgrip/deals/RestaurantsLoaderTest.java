@@ -1,21 +1,14 @@
-package com.github.squirrelgrip.deals.domain;
+package com.github.squirrelgrip.deals;
 
-import com.github.squirrelgrip.deals.RestaurantsLoader;
 import com.github.squirrelgrip.deals.repository.RestaurantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(MockitoExtension.class)
 public class RestaurantsLoaderTest {
 
-    @Mock
-    private RestaurantRepository restaurantRepository;
+    private RestaurantRepository restaurantRepository = new RestaurantRepository();
 
     private RestaurantsLoader testSubject;
 
@@ -27,12 +20,14 @@ public class RestaurantsLoaderTest {
     @Test
     void load_GivenStringWithNoRestaurants() {
         testSubject.load("{\"restaurants\": []}");
-        verify(restaurantRepository, never()).save(isA(Restaurant.class));
+
+        assertThat(restaurantRepository.size()).isEqualTo(0);
     }
 
     @Test
     void load_GivenResourceWith6Restaurants() {
         testSubject.loadFromResources("data.json");
-        verify(restaurantRepository, times(6)).save(isA(Restaurant.class));
+
+        assertThat(restaurantRepository.size()).isEqualTo(6);
     }
 }
