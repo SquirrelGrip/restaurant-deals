@@ -1,6 +1,7 @@
 package com.github.squirrelgrip.deals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.squirrelgrip.deals.domain.Restaurants;
 import com.github.squirrelgrip.deals.repository.RestaurantRepository;
 
@@ -13,6 +14,7 @@ public class RestaurantsLoader {
     private final RestaurantRepository restaurantRepository;
 
     public RestaurantsLoader(RestaurantRepository restaurantRepository) {
+        objectMapper.registerModule(new JavaTimeModule());
         this.restaurantRepository = restaurantRepository;
     }
 

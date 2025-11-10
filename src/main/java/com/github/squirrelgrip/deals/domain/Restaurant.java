@@ -1,5 +1,8 @@
 package com.github.squirrelgrip.deals.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalTime;
 import java.util.List;
 
 public class Restaurant {
@@ -9,8 +12,10 @@ public class Restaurant {
     String suburb;
     List<String> cuisines;
     String imageLink;
-    String open;
-    String close;
+    @JsonFormat(pattern = "h:mma")
+    LocalTime open;
+    @JsonFormat(pattern = "h:mma")
+    LocalTime close;
     List<RestaurantDeal> deals;
 
     public String getObjectId() {
@@ -61,19 +66,19 @@ public class Restaurant {
         this.imageLink = imageLink;
     }
 
-    public String getOpen() {
+    public LocalTime getOpen() {
         return open;
     }
 
-    public void setOpen(String open) {
+    public void setOpen(LocalTime open) {
         this.open = open;
     }
 
-    public String getClose() {
+    public LocalTime getClose() {
         return close;
     }
 
-    public void setClose(String close) {
+    public void setClose(LocalTime close) {
         this.close = close;
     }
 

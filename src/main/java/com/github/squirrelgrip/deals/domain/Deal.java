@@ -1,78 +1,79 @@
 package com.github.squirrelgrip.deals.domain;
 
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class Deal {
-    private final String restaurantObjectId;
-    private final String restaurantName;
-    private final String restaurantAddress1;
-    private final String restaurantSuburb;
-    private final String restaurantOpen;
-    private final String restaurantClose;
-    private final String dealObjectId;
-    private final Integer discount;
-    private final Boolean dineIn;
-    private final Boolean lightning;
+    private final Restaurant restaurant;
+    private final RestaurantDeal restaurantDeal;
 
     public Deal(
-            String restaurantObjectId,
-            String restaurantName,
-            String restaurantAddress1,
-            String restaurantSuburb,
-            String restaurantOpen,
-            String restaurantClose,
-            String dealObjectId,
-            Integer discount,
-            Boolean dineIn,
-            Boolean lightning
+            Restaurant restaurant,
+            RestaurantDeal restaurantDeal
     ) {
-        this.restaurantObjectId = restaurantObjectId;
-        this.restaurantName = restaurantName;
-        this.restaurantAddress1 = restaurantAddress1;
-        this.restaurantSuburb = restaurantSuburb;
-        this.restaurantOpen = restaurantOpen;
-        this.restaurantClose = restaurantClose;
-        this.dealObjectId = dealObjectId;
-        this.discount = discount;
-        this.dineIn = dineIn;
-        this.lightning = lightning;
+        this.restaurant = restaurant;
+        this.restaurantDeal = restaurantDeal;
     }
 
     public String getRestaurantObjectId() {
-        return restaurantObjectId;
+        return restaurant.getObjectId();
     }
 
     public String getRestaurantName() {
-        return restaurantName;
+        return restaurant.getName();
     }
 
     public String getRestaurantAddress1() {
-        return restaurantAddress1;
+        return restaurant.getAddress1();
     }
 
     public String getRestaurantSuburb() {
-        return restaurantSuburb;
+        return restaurant.getSuburb();
     }
 
-    public String getRestaurantOpen() {
-        return restaurantOpen;
+    public LocalTime getRestaurantOpen() {
+        return restaurant.getOpen();
     }
 
-    public String getRestaurantClose() {
-        return restaurantClose;
+    public LocalTime getRestaurantClose() {
+        return restaurant.getClose();
     }
 
     public String getDealObjectId() {
-        return dealObjectId;
+        return restaurantDeal.getObjectId();
     }
 
     public Integer getDiscount() {
-        return discount;
+        return restaurantDeal.getDiscount();
     }
 
     public Boolean getDineIn() {
-        return dineIn;
+        return restaurantDeal.getDineIn();
     }
 
     public Boolean getLightning() {
-        return lightning;
+        return restaurantDeal.getLightning();
     }
+
+    public boolean isValidAt(LocalTime time) {
+        return !time.isAfter(getDealEnd()) && !time.isBefore(getDealStart());
+    }
+
+    public LocalTime getDealStart() {
+        return getLatest(restaurant.getOpen(), restaurantDeal.getOpen(), restaurantDeal.getStart());
+    }
+
+    public LocalTime getDealEnd() {
+        return getEarliest(restaurant.getClose(), restaurantDeal.getClose(), restaurantDeal.getEnd());
+    }
+
+    private LocalTime getEarliest(LocalTime... time) {
+        return Arrays.stream(time).min(Comparator.nullsLast(LocalTime::compareTo)).orElse(LocalTime.MAX);
+    }
+
+    public LocalTime getLatest(LocalTime... time) {
+        return Arrays.stream(time).max(Comparator.nullsFirst(LocalTime::compareTo)).orElse(LocalTime.MIN);
+    }
+
 }

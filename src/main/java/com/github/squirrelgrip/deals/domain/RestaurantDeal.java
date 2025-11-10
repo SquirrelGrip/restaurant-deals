@@ -1,14 +1,22 @@
 package com.github.squirrelgrip.deals.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalTime;
+
 public class RestaurantDeal {
     private String objectId;
     private Integer discount;
     private Boolean dineIn;
     private Boolean lightning;
-    private String open;
-    private String close;
-    private String start;
-    private String end;
+    @JsonFormat(pattern = "h:mma")
+    private LocalTime open;
+    @JsonFormat(pattern = "h:mma")
+    private LocalTime close;
+    @JsonFormat(pattern = "h:mma")
+    private LocalTime start;
+    @JsonFormat(pattern = "h:mma")
+    private LocalTime end;
     private Integer qtyLeft;
 
     public String getObjectId() {
@@ -43,35 +51,35 @@ public class RestaurantDeal {
         this.lightning = lightning;
     }
 
-    public String getOpen() {
+    public LocalTime getOpen() {
         return open;
     }
 
-    public void setOpen(String open) {
+    public void setOpen(LocalTime open) {
         this.open = open;
     }
 
-    public String getClose() {
+    public LocalTime getClose() {
         return close;
     }
 
-    public void setClose(String close) {
+    public void setClose(LocalTime close) {
         this.close = close;
     }
 
-    public String getStart() {
+    public LocalTime getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(LocalTime start) {
         this.start = start;
     }
 
-    public String getEnd() {
+    public LocalTime getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(LocalTime end) {
         this.end = end;
     }
 
@@ -81,5 +89,12 @@ public class RestaurantDeal {
 
     public void setQtyLeft(Integer qtyLeft) {
         this.qtyLeft = qtyLeft;
+    }
+
+    public Deal getRealDeal(Restaurant restaurant) {
+        return new Deal(
+                restaurant,
+                this
+        );
     }
 }

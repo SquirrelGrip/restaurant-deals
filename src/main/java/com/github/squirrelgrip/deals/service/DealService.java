@@ -3,6 +3,7 @@ package com.github.squirrelgrip.deals.service;
 import com.github.squirrelgrip.deals.domain.Deal;
 import com.github.squirrelgrip.deals.repository.RestaurantRepository;
 
+import java.time.LocalTime;
 import java.util.stream.Stream;
 
 public class DealService {
@@ -17,19 +18,13 @@ public class DealService {
                 restaurant.getDeals()
                         .stream()
                         .map(restaurantDeal ->
-                                new Deal(
-                                        restaurant.getObjectId(),
-                                        restaurant.getName(),
-                                        restaurant.getAddress1(),
-                                        restaurant.getSuburb(),
-                                        restaurant.getOpen(),
-                                        restaurant.getClose(),
-                                        restaurantDeal.getObjectId(),
-                                        restaurantDeal.getDiscount(),
-                                        restaurantDeal.getDineIn(),
-                                        restaurantDeal.getLightning()
-                                )
+                                restaurantDeal.getRealDeal(restaurant)
                         )
         );
+    }
+
+    public Stream<Deal> streamAllDealsAt(String time) {
+        LocalTime localTime = LocalTime.parse(time);
+        return streamAllDeals().filter(deal -> deal.isValidAt(localTime));
     }
 }
