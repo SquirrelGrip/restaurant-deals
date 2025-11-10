@@ -23,17 +23,17 @@ public class DealServiceTest {
     }
 
     @Test
-    void streamAllDealsAt3pm() {
-        assertThat(testSubject.streamAllDealsAt("15:00")).hasSize(7);
+    void getDealsAt3Pm() {
+        assertThat(testSubject.getDealsAt("15:00").deals()).hasSize(7);
     }
 
     @Test
-    void streamAllDealsAt6pm() {
-        assertThat(testSubject.streamAllDealsAt("18:00")).hasSize(9);
+    void getDealsAt6Pm() {
+        assertThat(testSubject.getDealsAt("18:00").deals()).hasSize(9);
     }
 
     @Test
-    void streamAllDealsAt9pm() {
-        assertThat(testSubject.streamAllDealsAt("21:00")).hasSize(9);
+    void getDealsAt9Pm() {
+        assertThat(testSubject.getDealsAt("21:00").deals()).hasSize(9);
     }
 }
