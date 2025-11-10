@@ -1,11 +1,10 @@
 package com.github.squirrelgrip.deals.repository;
 
-import com.github.squirrelgrip.deals.RestaurantsLoader;
+import com.github.squirrelgrip.deals.loader.RestaurantsLoader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class RestaurantRepositoryTest {
 

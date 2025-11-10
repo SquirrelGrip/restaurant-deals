@@ -3,15 +3,17 @@ package com.github.squirrelgrip.deals.service;
 import com.github.squirrelgrip.deals.domain.Deal;
 import com.github.squirrelgrip.deals.domain.Deals;
 import com.github.squirrelgrip.deals.repository.RestaurantRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Service
 public class DealService {
     private final RestaurantRepository restaurantRepository;
 
+    @Autowired
     public DealService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }

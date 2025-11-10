@@ -1,4 +1,4 @@
-package com.github.squirrelgrip.deals.controllers;
+package com.github.squirrelgrip.deals.controller;
 
 import com.github.squirrelgrip.deals.domain.Deals;
 import com.github.squirrelgrip.deals.service.DealService;

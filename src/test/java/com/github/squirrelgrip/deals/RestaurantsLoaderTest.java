@@ -1,5 +1,6 @@
 package com.github.squirrelgrip.deals;
 
+import com.github.squirrelgrip.deals.loader.RestaurantsLoader;
 import com.github.squirrelgrip.deals.repository.RestaurantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.github.squirrelgrip.deals;
+package com.github.squirrelgrip.deals.loader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
