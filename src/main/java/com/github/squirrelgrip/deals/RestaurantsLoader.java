@@ -2,24 +2,42 @@ package com.github.squirrelgrip.deals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.squirrelgrip.deals.domain.Restaurants;
+import com.github.squirrelgrip.deals.repository.RestaurantRepository;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public class RestaurantsLoader {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Restaurants load(String data) {
+    private final RestaurantRepository restaurantRepository;
+
+    public RestaurantsLoader(RestaurantRepository restaurantRepository) {
+        this.restaurantRepository = restaurantRepository;
+    }
+
+    public void load(String data) {
         try {
-            return objectMapper.readValue(data, Restaurants.class);
+            Restaurants restaurants = objectMapper.readValue(data, Restaurants.class);
+            restaurants.getRestaurants().forEach(restaurantRepository::save);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Restaurants loadFromResources(String resource) {
+    public void loadFromResources(String resource) {
         try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource)) {
-            return objectMapper.readValue(inputStream, Restaurants.class);
+            loadFromStream(inputStream);
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void loadFromStream(InputStream inputStream) {
+        try {
+            Restaurants restaurants = objectMapper.readValue(inputStream, Restaurants.class);
+            restaurants.getRestaurants().forEach(restaurantRepository::save);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
