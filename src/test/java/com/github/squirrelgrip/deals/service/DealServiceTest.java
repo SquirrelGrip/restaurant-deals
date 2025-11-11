@@ -1,9 +1,13 @@
 package com.github.squirrelgrip.deals.service;
 
+import com.github.squirrelgrip.deals.domain.Interval;
+import com.github.squirrelgrip.deals.domain.Peak;
 import com.github.squirrelgrip.deals.loader.RestaurantsLoader;
 import com.github.squirrelgrip.deals.repository.RestaurantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,5 +39,13 @@ public class DealServiceTest {
     @Test
     void getDealsAt9Pm() {
         assertThat(testSubject.getDealsAt("21:00").deals()).hasSize(9);
+    }
+
+    @Test
+    void getPeak() {
+        Peak peak = testSubject.getPeak();
+
+        assertThat(peak.getPeakTimeStart()).isEqualTo(LocalTime.parse("18:00"));
+        assertThat(peak.getPeakTimeEnd()).isEqualTo(LocalTime.parse("21:00"));
     }
 }

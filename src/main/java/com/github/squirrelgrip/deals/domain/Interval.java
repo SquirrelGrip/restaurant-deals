@@ -2,23 +2,30 @@ package com.github.squirrelgrip.deals.domain;
 
 import java.time.LocalTime;
 
-public class Peak {
-    private final LocalTime peakTimeStart;
-    private final LocalTime peakTimeEnd;
+public class Interval {
+    private final LocalTime timeStart;
+    private final LocalTime timeEnd;
+    private final Integer count;
 
-    public Peak(
-            LocalTime peakTimeStart,
-            LocalTime peakTimeEnd
+    public Interval(
+            LocalTime timeStart,
+            LocalTime timeEnd,
+            Integer count
     ) {
-        this.peakTimeStart = peakTimeStart;
-        this.peakTimeEnd = peakTimeEnd;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.count = count;
     }
 
-    public LocalTime getPeakTimeStart() {
-        return peakTimeStart;
+    public LocalTime getTimeStart() {
+        return timeStart;
     }
 
-    public LocalTime getPeakTimeEnd() {
-        return peakTimeEnd;
+    public LocalTime getTimeEnd() {
+        return timeEnd;
+    }
+
+    public Integer getCount() {
+        return count;
     }
 }

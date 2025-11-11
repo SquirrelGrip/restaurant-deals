@@ -1,6 +1,8 @@
 package com.github.squirrelgrip.deals.controller;
 
 import com.github.squirrelgrip.deals.domain.Deals;
+import com.github.squirrelgrip.deals.domain.Interval;
+import com.github.squirrelgrip.deals.domain.Peak;
 import com.github.squirrelgrip.deals.service.DealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,5 +21,10 @@ public class DealController {
     @GetMapping(path="/api/dealsAt")
     public Deals getDealsAt(@RequestParam(name = "timeOfDay") String timeOfDay) {
         return dealService.getDealsAt(timeOfDay);
+    }
+
+    @GetMapping(path="/api/peak")
+    public Peak getPeak() {
+        return dealService.getPeak();
     }
 }
