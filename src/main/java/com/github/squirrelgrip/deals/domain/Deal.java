@@ -6,7 +6,12 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public record Deal(Restaurant restaurant, RestaurantDeal restaurantDeal) {
+public record Deal(
+        @JsonIgnore
+        Restaurant restaurant,
+        @JsonIgnore
+        RestaurantDeal restaurantDeal
+) {
 
     public String getRestaurantObjectId() {
         return restaurant.getObjectId();
